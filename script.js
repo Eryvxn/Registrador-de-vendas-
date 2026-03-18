@@ -1,6 +1,7 @@
 let botao = document.getElementById("registrar")
 let listaVendas = document.getElementById("lista-vendas")
 let totalElemento = document.getElementById("total")
+let botaoLimpar = document.getElementById("limpar")
 
 let totalDia = 0
 let vendas = []
@@ -97,3 +98,20 @@ totalDia += venda.total
 totalElemento.textContent = "Total do Mês: R$" + totalDia
 
 } 
+
+botaoLimpar.addEventListener("click", function(){
+
+if(confirm("Tem certeza que deseja apagar todas as vendas?")){
+
+listaVendas.innerHTML = ""
+
+totalDia = 0
+totalElemento.textContent = "Total do Dia: R$0"
+
+vendas = []
+
+localStorage.removeItem("vendas")
+
+}
+
+})
