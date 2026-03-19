@@ -186,3 +186,7 @@ localStorage.removeItem("vendas")
 }
 
 })
+
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js")
+}
