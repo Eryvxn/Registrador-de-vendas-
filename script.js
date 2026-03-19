@@ -2,6 +2,7 @@ let botao = document.getElementById("registrar")
 let listaVendas = document.getElementById("lista-vendas")
 let totalElemento = document.getElementById("total")
 let botaoLimpar = document.getElementById("limpar")
+let carrinho = []
 
 let totalDia = 0
 let vendas = []
@@ -22,9 +23,11 @@ let precos = {
 "Paleta Mexicana": 4
 }
 
-botao.addEventListener("click", registrarVenda)
+let botaoAdd = document.getElementById("add")
 
-function registrarVenda(){
+botaoAdd.addEventListener("click", adicionarProduto)
+
+function adicionarProduto(){
 
 let produto = document.getElementById("produto").value
 let quantidade = document.getElementById("quantidade").value
@@ -35,42 +38,66 @@ return
 }
 
 let preco = precos[produto]
-let totalVenda = preco * quantidade
+let total = preco * quantidade
 
-totalDia += totalVenda
+carrinho.push({
+produto: produto,
+quantidade: quantidade,
+total: total
+})
+
+alert("Produto adicionado ao pedido!")
+
+document.getElementById("quantidade").value = ""
+}
+
+
+botao.addEventListener("click", registrarVenda)
+
+
+function registrarVenda(){
+    console.log("CLIQUE FUNCIONOU")
+
+let cliente = document.getElementById("cliente").value
+
+if(cliente == ""){
+alert("Digite o nome do cliente")
+return
+}
+
+if(carrinho.length == 0){
+alert("Adicione produtos ao pedido")
+return
+}
+
+let totalPedido = 0
 
 let linha = document.createElement("p")
 
-linha.textContent =
-produto + " | " +
-quantidade + " unidades vendidas | R$" +
-totalVenda + " "
+linha.textContent = "Cliente: " + cliente + " | "
 
-let botaoRemover = document.createElement("button")
-botaoRemover.textContent = "❌"
+carrinho.forEach(function(item){
+linha.textContent += item.produto + " (" + item.quantidade + ") | "
+totalPedido += item.total
+})
 
-linha.appendChild(botaoRemover)
+linha.textContent += " Total: R$" + totalPedido
 
 listaVendas.appendChild(linha)
 
-totalElemento.textContent = "Total do Dia: R$" + totalDia
+totalDia += totalPedido
+totalElemento.textContent = "Total do Mês: R$" + totalDia
 
-botaoRemover.addEventListener("click", function(){
-
-linha.remove()
-
-totalDia -= totalVenda
-
-totalElemento.textContent = "Total do Dia: R$" + totalDia
-})
-
- vendas.push({
-produto: produto,
-quantidade: quantidade,
-total: totalVenda
+vendas.push({
+cliente: cliente,
+itens: carrinho,
+total: totalPedido
 })
 
 localStorage.setItem("vendas", JSON.stringify(vendas))
+
+carrinho = []
+document.getElementById("cliente").value = ""
 
 }
 
@@ -84,10 +111,13 @@ vendas.forEach(function(venda){
 
 let linha = document.createElement("p")
 
-linha.textContent =
-venda.produto + " | " +
-venda.quantidade + " unidades vendidas | R$" +
-venda.total
+linha.textContent = "Cliente: " + venda.cliente + " | "
+
+venda.itens.forEach(function(item){
+linha.textContent += item.produto + " (" + item.quantidade + ") | "
+})
+
+linha.textContent += " Total: R$" + venda.total
 
 listaVendas.appendChild(linha)
 
@@ -97,7 +127,9 @@ totalDia += venda.total
 
 totalElemento.textContent = "Total do Mês: R$" + totalDia
 
-} 
+}
+
+
 
 botaoLimpar.addEventListener("click", function(){
 
@@ -106,7 +138,7 @@ if(confirm("Tem certeza que deseja apagar todas as vendas?")){
 listaVendas.innerHTML = ""
 
 totalDia = 0
-totalElemento.textContent = "Total do Dia: R$0"
+totalElemento.textContent = "Total do Mês: R$0"
 
 vendas = []
 
