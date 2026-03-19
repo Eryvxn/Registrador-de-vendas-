@@ -2,6 +2,8 @@ let botao = document.getElementById("registrar")
 let listaVendas = document.getElementById("lista-vendas")
 let totalElemento = document.getElementById("total")
 let botaoLimpar = document.getElementById("limpar")
+let carrinhoLista = document.getElementById("carrinho-lista")
+let totalCarrinhoElemento = document.getElementById("total-carrinho")
 let carrinho = []
 
 let totalDia = 0
@@ -47,6 +49,7 @@ total: total
 })
 
 alert("Produto adicionado ao pedido!")
+atualizarCarrinho()
 
 document.getElementById("quantidade").value = ""
 }
@@ -56,7 +59,7 @@ botao.addEventListener("click", registrarVenda)
 
 
 function registrarVenda(){
-    console.log("CLIQUE FUNCIONOU")
+    
 
 let cliente = document.getElementById("cliente").value
 
@@ -97,7 +100,43 @@ total: totalPedido
 localStorage.setItem("vendas", JSON.stringify(vendas))
 
 carrinho = []
+atualizarCarrinho()
+
 document.getElementById("cliente").value = ""
+
+}
+
+function atualizarCarrinho(){
+
+carrinhoLista.innerHTML = ""
+
+let total = 0
+
+carrinho.forEach(function(item, index){
+
+let linha = document.createElement("p")
+
+linha.textContent = item.produto + " (" + item.quantidade + ") "
+
+let botaoRemover = document.createElement("button")
+botaoRemover.textContent = "❌"
+
+botaoRemover.addEventListener("click", function(){
+
+carrinho.splice(index, 1)
+atualizarCarrinho()
+
+})
+
+linha.appendChild(botaoRemover)
+
+carrinhoLista.appendChild(linha)
+
+total += item.total
+
+})
+
+totalCarrinhoElemento.textContent = "Total: R$" + total
 
 }
 
