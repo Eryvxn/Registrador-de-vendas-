@@ -4,75 +4,107 @@
 <meta charset="UTF-8">
 <title>Artico Sorvetes - Controle de Vendas</title>
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<h1>ARTICO SORVETES</h1>
+<header>
+  <div class="header-inner">
+    <span class="header-icon">🍦</span>
+    <h1>ARTICO SORVETES</h1>
+    <span class="header-tagline">Controle de Vendas</span>
+  </div>
+</header>
 
 <div class="container">
 
-<h2>Controle de Vendas</h2>
+  <!-- COLUNA ESQUERDA -->
+  <div class="col-left">
 
+    <!-- REGISTRAR VENDA -->
+    <section class="card">
+      <div class="card-header">
+        <span class="card-icon">🧾</span>
+        <h2>Registrar Venda</h2>
+      </div>
 
-<hr>
+      <div class="field-group">
+        <label for="cliente">Cliente</label>
+        <input type="text" id="cliente" placeholder="Nome do cliente">
+      </div>
 
-<h3>Registrar Venda</h3>
+      <div class="field-group">
+        <label for="produto">Produto</label>
+        <select id="produto">
+          <optgroup label="🍨 Sorvetes">
+            <option>Sorvete 10L</option>
+            <option>Sorvete 5L</option>
+            <option>Sorvete 1L</option>
+            <option>Sorvete 200ML</option>
+            <option>Sundae</option>
+          </optgroup>
+          <optgroup label="🫐 Açaí">
+            <option>Açaí 10L</option>
+            <option>Açaí 5L</option>
+            <option>Açaí 1L</option>
+          </optgroup>
+          <optgroup label="🍡 Picolés">
+            <option>Ao leite</option>
+            <option>Skimo</option>
+            <option>Paleta Mexicana</option>
+          </optgroup>
+        </select>
+      </div>
 
-<label>Cliente:</label>
-<input type="text" id="cliente" placeholder="Nome do cliente">
+      <div class="field-group">
+        <label for="quantidade">Quantidade</label>
+        <input type="number" id="quantidade" placeholder="0" min="1">
+      </div>
 
-<label>Produto:</label>
+      <button id="add" class="btn btn-primary">
+        <span>＋</span> Adicionar ao Pedido
+      </button>
+    </section>
 
-<select id="produto">
+    <!-- CARRINHO -->
+    <section class="card">
+      <div class="card-header">
+        <span class="card-icon">🛒</span>
+        <h2>Carrinho</h2>
+      </div>
+      <div id="carrinho-lista" class="lista-interna"></div>
+      <div class="total-box">
+        <span>Total do pedido</span>
+        <p id="total-carrinho">R$0</p>
+      </div>
+      <button id="registrar" class="btn btn-success">
+        ✔ Finalizar Pedido
+      </button>
+    </section>
 
-<optgroup label="Sorvetes">
-<option>Sorvete 10L</option>
-<option>Sorvete 5L</option>
-<option>Sorvete 1L</option>
-<option>Sorvete 200ML</option>
-<option>Sundae</option>
-</optgroup>
+  </div>
 
-<optgroup label="Açaí">
-<option>Açaí 10L</option>
-<option>Açaí 5L</option>
-<option>Açaí 1L</option>
-</optgroup>
+  <!-- COLUNA DIREITA -->
+  <div class="col-right">
 
-<optgroup label="Picolés">
-<option>Ao leite</option>
-<option>Skimo</option>
-<option>Paleta Mexicana</option>
-</optgroup>
+    <!-- VENDAS DO MÊS -->
+    <section class="card card-tall">
+      <div class="card-header">
+        <span class="card-icon">📊</span>
+        <h2>Vendas do Mês</h2>
+      </div>
+      <div id="lista-vendas" class="lista-interna lista-scroll"></div>
+      <div class="total-box destaque">
+        <span>Total do mês</span>
+        <h2 id="total">R$0</h2>
+      </div>
+      <button id="limpar" class="btn btn-danger">
+        🧹 Limpar Tudo
+      </button>
+    </section>
 
-</select>
-
-<br><br>
-
-<label>Quantidade:</label>
-<input type="number" id="quantidade">
-
-<br><br>
-
-<button id="add">Adicionar ao Pedido</button>
-<br><br>
-<h3>Carrinho</h3>
-<div id="carrinho-lista"></div>
-<p id="total-carrinho">Total: R$0</p>
-<br><br>
-<button id="registrar">Finalizar Pedido</button>
-
-<hr>
-
-<h3>Vendas do Mês</h3>
-
-<div id="lista-vendas"></div>
-
-<hr>
-
-<h2 id="total">Total do Mês: R$0</h2>
-<button id="limpar">🧹 Limpar Tudo</button>
+  </div>
 
 </div>
 

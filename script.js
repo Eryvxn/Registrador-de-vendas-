@@ -20,7 +20,7 @@ let precos = {
 "Açaí 5L": 50,
 "Açaí 1L": 10,
 
-"Ao leite": 2,
+"Ao leite": 1.2,
 "Skimo": 3,
 "Paleta Mexicana": 4
 }
@@ -48,7 +48,7 @@ quantidade: quantidade,
 total: total
 })
 
-alert("Produto adicionado ao pedido!")
+
 atualizarCarrinho()
 
 document.getElementById("quantidade").value = ""
